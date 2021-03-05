@@ -13,7 +13,18 @@ class Menu:
 
     Attributes
     ----------
-        ..................................
+        screen: <class 'pygame.Surface'>
+            The pygame surface where everything is rendered.           
+        clock: <class 'Clock'>
+            Maintains a constant frame rate.
+        button_colour: tuple
+            Colour of the buttons.
+        text_colour: tuple
+            Colour of text.
+        font: <class 'pygame.font.Font'>
+            Style and size of text.
+        result: int, float
+            Result from a calcualtion.
 
     Methods
     -------
@@ -38,7 +49,7 @@ class Menu:
                 The pygame surface where everything is rendered.           
             clock: <class 'Clock'>
                 Maintains a constant frame rate.
-            button_colour: tuple
+            colour: tuple
                 Colour of the buttons.
             text_colour: tuple
                 Colour of text.
@@ -46,6 +57,15 @@ class Menu:
                 Style and size of text.
             result: int, float
                 Result from a calcualtion.
+            click: bool
+                Keeps track of whether the mouse is clicked or not.
+            button_size: int
+                Defines the size of the buttons.
+            option: str, optional
+                Used to store the user's options.
+                Can take on any value from button_command.
+            button_command: list
+                Stores all possible button commands
         """
         
         self.screen = screen
@@ -58,8 +78,6 @@ class Menu:
         self.button_size = 90
         self.option = None
         self.button_command = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", "calc"]
-        self.title = "Calculator"
-
 # --------------------------------------- Sets up Calculator ------------------------------------- #
     def setup(self):
         """

@@ -12,6 +12,7 @@ def main():
     
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
+    pygame.display.set_caption("Caculator - by Frazer Mills")
     clock = pygame.time.Clock()
     text_font = pygame.font.SysFont("Arial", 40)
     text_colour = BLACK
@@ -19,9 +20,7 @@ def main():
     
     while True:
         nums, operator = menu_handler(screen, clock, WHITE, text_colour, text_font, result)
-        print(nums, operator)
         result = operation_handler(nums, operator)
-        print(result)
         pygame.display.update()
         clock.tick(fps)
 
@@ -91,10 +90,22 @@ def menu_handler(screen, clock, button_colour, text_colour, text_font, result):
 
 def operation_handler(nums, operator):
     result = 0
+
     if operator == "+":
         result = sum(nums)
+        
     elif operator == "-":
-        pass
+        result = nums[0] - nums[1]
+        
+    elif operator == "*":
+        result = round(nums[0] * nums[1], 3)
+
+    elif operator == "/":
+        result = round(nums[0] / nums[1], 3)
+
+    else:
+        result = "illegal input"
+
     return result
 
 if __name__ == "__main__":

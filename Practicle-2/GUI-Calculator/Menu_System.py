@@ -64,7 +64,7 @@ class Menu:
 
         button_calc_xy  = ((self.screen.get_width() // 2) - (self.button_size // 2) + 50, (self.screen.get_height() // 2) + 200)
         button_calc = pygame.Rect(button_calc_xy[0], button_calc_xy[1], self.button_size, self.button_size)
-
+        
         calc_screen_xy = (50, 10)
         calc_screen = pygame.Rect(calc_screen_xy[0], calc_screen_xy[1], self.screen.get_width() - 100, self.button_size)
 
@@ -154,8 +154,8 @@ class Menu:
         self.draw_text(f"{self.button_command[11]}", button_multiply_xy[0] + self.button_size // 2, button_multiply_xy[1] + self.button_size // 2)
         self.draw_text(f"{self.button_command[12]}", button_divide_xy[0] + self.button_size // 2, button_divide_xy[1] + self.button_size // 2)
         self.draw_text(f"{self.button_command[13]}", button_calc_xy[0] + self.button_size // 2, button_calc_xy[1] + self.button_size // 2)
-        self.draw_text(f"{self.result}", calc_screen_xy[0] + self.button_size // 2, calc_screen_xy[1] + self.button_size // 2)
-        
+        self.draw_text(f"{self.result}", self.screen.get_width() // 2, calc_screen_xy[1] + self.button_size // 2)
+                
         pygame.display.update()
 
     def is_clicked(self):

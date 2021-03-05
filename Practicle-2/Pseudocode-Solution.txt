@@ -1,0 +1,31 @@
+This is the pseudocode that I wrote to complete the following task:
+	The program will ask for the user to enter two numbers and then display a menu with the following options:
+		subtract, 
+		multiply, 
+		divide,
+		addition,
+		and output the results to screen.
+
+Answer:
+
+num1 = USERINPUT
+num2 = USERINPUT
+operator = USERINPUT
+result = NONE
+
+IF operator == 1 THEN
+	result = num1 - num2
+
+ELSE IF operator == 2 THEN
+	result = num1 * num2
+
+ELSE IF operator == 3 THEN
+	result = num1 / num2
+
+ELSE IF operator == 4 THEN
+	result = num1 + num2
+
+ELSE THEN
+	OUTPUT "That is an illegal input, please try again"
+
+OUTPUT result

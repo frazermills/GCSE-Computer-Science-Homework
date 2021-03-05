@@ -1,62 +1,65 @@
 import pygame
 
 class Menu:
-    def __init__(self, screen, clock, colour):
+    def __init__(self, screen, clock, button_colour, text_colour, font):
         self.screen = screen
         self.clock = clock
-        self.colour = colour
+        self.colour = button_colour
+        self.text_colour = text_colour
+        self.font = font
         self.click = False
-        self.button_size = 100
-        self.button_width = 75
-        self.button_height = 75
+        self.button_size = 90
         self.option = None
-        self.button_command = ["button 1", "button 2", "button 3", "button 4", "button 5", "button 6", "button 7", "button 8", "button 9", "add", "subtract", "multiply", "divide"]
+        self.button_command = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/"]
         self.title = "Calculator"
 
-    def setup(self):
-        pass
-    
+    def draw_text(self, text, x, y):
+        textobj = self.font.render(text, 1, self.text_colour)
+        textrect = textobj.get_rect()
+        textrect.center = (x, y)
+        self.screen.blit(textobj, textrect)
+
     def update(self):
         mousex, mousey = pygame.mouse.get_pos()
 
-        button_1_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) - 150, (self.screen.get_height() // 2) - 100)
-        button_1 = pygame.Rect(button_1_xy[0], button_1_xy[1], self.button_width, self.button_height)
+        button_1_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) - 150, (self.screen.get_height() // 2) - 100)
+        button_1 = pygame.Rect(button_1_xy[0], button_1_xy[1], self.button_size, self.button_size)
 
-        button_2_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) - 50, (self.screen.get_height() // 2) - 100)
-        button_2 = pygame.Rect(button_2_xy[0], button_2_xy[1], self.button_width, self.button_height)
+        button_2_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) - 50, (self.screen.get_height() // 2) - 100)
+        button_2 = pygame.Rect(button_2_xy[0], button_2_xy[1], self.button_size, self.button_size)
 
-        button_3_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) + 50, (self.screen.get_height() // 2) - 100)
-        button_3 = pygame.Rect(button_3_xy[0], button_3_xy[1], self.button_width, self.button_height)
+        button_3_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) + 50, (self.screen.get_height() // 2) - 100)
+        button_3 = pygame.Rect(button_3_xy[0], button_3_xy[1], self.button_size, self.button_size)
 
-        button_4_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) - 150, (self.screen.get_height() // 2))
-        button_4 = pygame.Rect(button_4_xy[0], button_4_xy[1], self.button_width, self.button_height)
+        button_4_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) - 150, (self.screen.get_height() // 2))
+        button_4 = pygame.Rect(button_4_xy[0], button_4_xy[1], self.button_size, self.button_size)
 
-        button_5_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) - 50, (self.screen.get_height() // 2))
-        button_5 = pygame.Rect(button_5_xy[0], button_5_xy[1], self.button_width, self.button_height)
+        button_5_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) - 50, (self.screen.get_height() // 2))
+        button_5 = pygame.Rect(button_5_xy[0], button_5_xy[1], self.button_size, self.button_size)
 
-        button_6_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) + 50, (self.screen.get_height() // 2))
-        button_6 = pygame.Rect(button_6_xy[0], button_6_xy[1], self.button_width, self.button_height)
+        button_6_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) + 50, (self.screen.get_height() // 2))
+        button_6 = pygame.Rect(button_6_xy[0], button_6_xy[1], self.button_size, self.button_size)
 
-        button_7_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) - 150, (self.screen.get_height() // 2) + 100)
-        button_7 = pygame.Rect(button_7_xy[0], button_7_xy[1], self.button_width, self.button_height)
+        button_7_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) - 150, (self.screen.get_height() // 2) + 100)
+        button_7 = pygame.Rect(button_7_xy[0], button_7_xy[1], self.button_size, self.button_size)
 
-        button_8_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) - 50, (self.screen.get_height() // 2) + 100)
-        button_8 = pygame.Rect(button_8_xy[0], button_8_xy[1], self.button_width, self.button_height)
+        button_8_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) - 50, (self.screen.get_height() // 2) + 100)
+        button_8 = pygame.Rect(button_8_xy[0], button_8_xy[1], self.button_size, self.button_size)
 
-        button_9_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) + 50, (self.screen.get_height() // 2) + 100)
-        button_9 = pygame.Rect(button_9_xy[0], button_9_xy[1], self.button_width, self.button_height)
+        button_9_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) + 50, (self.screen.get_height() // 2) + 100)
+        button_9 = pygame.Rect(button_9_xy[0], button_9_xy[1], self.button_size, self.button_size)
 
-        button_add_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) + 150, (self.screen.get_height() // 2) - 100)
-        button_add = pygame.Rect(button_add_xy[0], button_add_xy[1], self.button_width, self.button_height)
+        button_add_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) + 150, (self.screen.get_height() // 2) - 100)
+        button_add = pygame.Rect(button_add_xy[0], button_add_xy[1], self.button_size, self.button_size)
 
-        button_subtract_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) + 150, (self.screen.get_height() // 2))
-        button_subtract = pygame.Rect(button_subtract_xy[0], button_subtract_xy[1], self.button_width, self.button_height)
+        button_subtract_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) + 150, (self.screen.get_height() // 2))
+        button_subtract = pygame.Rect(button_subtract_xy[0], button_subtract_xy[1], self.button_size, self.button_size)
 
-        button_multiply_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) + 150, (self.screen.get_height() // 2) + 100)
-        button_multiply = pygame.Rect(button_multiply_xy[0], button_multiply_xy[1], self.button_width, self.button_height)
+        button_multiply_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) + 150, (self.screen.get_height() // 2) + 100)
+        button_multiply = pygame.Rect(button_multiply_xy[0], button_multiply_xy[1], self.button_size, self.button_size)
 
-        button_divide_xy = ((self.screen.get_width() // 2) - (self.button_width // 2) + 150, (self.screen.get_height() // 2) + 200)
-        button_divide = pygame.Rect(button_divide_xy[0], button_divide_xy[1], self.button_width, self.button_height)
+        button_divide_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) + 150, (self.screen.get_height() // 2) + 200)
+        button_divide = pygame.Rect(button_divide_xy[0], button_divide_xy[1], self.button_size, self.button_size)
 
         if button_1.collidepoint((mousex, mousey)):
             if self.click:
@@ -123,6 +126,20 @@ class Menu:
         pygame.draw.rect(self.screen, self.colour, button_subtract)
         pygame.draw.rect(self.screen, self.colour, button_multiply)
         pygame.draw.rect(self.screen, self.colour, button_divide)
+
+        self.draw_text(f"{self.button_command[0]}", button_1_xy[0] + self.button_size // 2, button_1_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[1]}", button_2_xy[0] + self.button_size // 2, button_2_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[2]}", button_3_xy[0] + self.button_size // 2, button_3_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[3]}", button_4_xy[0] + self.button_size // 2, button_4_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[4]}", button_5_xy[0] + self.button_size // 2, button_5_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[5]}", button_6_xy[0] + self.button_size // 2, button_6_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[6]}", button_7_xy[0] + self.button_size // 2, button_7_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[7]}", button_8_xy[0] + self.button_size // 2, button_8_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[8]}", button_9_xy[0] + self.button_size // 2, button_9_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[9]}", button_add_xy[0] + self.button_size // 2, button_add_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[10]}", button_subtract_xy[0] + self.button_size // 2, button_subtract_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[11]}", button_multiply_xy[0] + self.button_size // 2, button_multiply_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.button_command[12]}", button_divide_xy[0] + self.button_size // 2, button_divide_xy[1] + self.button_size // 2)
 
         pygame.display.update()
 

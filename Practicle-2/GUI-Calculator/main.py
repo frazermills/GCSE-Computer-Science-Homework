@@ -8,58 +8,62 @@ def main():
     BLACK = (0, 0, 0)
     RED = (255, 0, 0)
     fps = 25
+    
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
+    text_font = pygame.font.SysFont("Arial", 40)
+    text_colour = BLACK
+    button_colour = WHITE
+    
     while True:
-        menu_handler(screen, clock, WHITE)
+        menu_handler(screen, clock, WHITE, text_colour, text_font)
         pygame.display.update()
         clock.tick(fps)
-    
 
-def menu_handler(screen, clock, colour):
-    menu = Menu_System.Menu(screen, clock, colour)
+def menu_handler(screen, clock, button_colour, text_colour, text_font):
+    menu = Menu_System.Menu(screen, clock, button_colour, text_colour, text_font)
     while menu.option == None:
         menu.update()
         menu.is_clicked()
 
-        if menu.option == "button 1":
+        if menu.option == "1":
             print("button 1 clicked")
             
-        elif menu.option == "button 2":
+        elif menu.option == "2":
             print("button 2 clicked")
 
-        elif menu.option == "button 3":
+        elif menu.option == "3":
             print("button 3 clicked")
 
-        elif menu.option == "button 4":
+        elif menu.option == "4":
             print("button 4 clicked")
 
-        elif menu.option == "button 5":
+        elif menu.option == "5":
             print("button 5 clicked")
 
-        elif menu.option == "button 6":
+        elif menu.option == "6":
             print("button 6 clicked")
 
-        elif menu.option == "button 7":
+        elif menu.option == "7":
             print("button 7 clicked")
 
-        elif menu.option == "button 8":
+        elif menu.option == "8":
             print("button 8 clicked")
 
-        elif menu.option == "button 9":
+        elif menu.option == "9":
             print("button 9 clicked")
 
-        elif menu.option == "add":
+        elif menu.option == "+":
             print("add button clicked")
 
-        elif menu.option == "subtract":
+        elif menu.option == "-":
             print("subtract button clicked")
 
-        elif menu.option == "multiply":
+        elif menu.option == "*":
             print("multiply button clicked")
 
-        elif menu.option == "divide":
+        elif menu.option == "/":
             print("divide button clicked")
 
 

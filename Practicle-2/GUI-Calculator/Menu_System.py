@@ -1,16 +1,17 @@
 import pygame
 
 class Menu:
-    def __init__(self, screen, clock, button_colour, text_colour, font):
+    def __init__(self, screen, clock, button_colour, text_colour, font, result):
         self.screen = screen
         self.clock = clock
         self.colour = button_colour
         self.text_colour = text_colour
         self.font = font
+        self.result = result
         self.click = False
         self.button_size = 90
         self.option = None
-        self.button_command = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/"]
+        self.button_command = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", "calc"]
         self.title = "Calculator"
 
     def draw_text(self, text, x, y):
@@ -60,6 +61,12 @@ class Menu:
 
         button_divide_xy = ((self.screen.get_width() // 2) - (self.button_size // 2) + 150, (self.screen.get_height() // 2) + 200)
         button_divide = pygame.Rect(button_divide_xy[0], button_divide_xy[1], self.button_size, self.button_size)
+
+        button_calc_xy  = ((self.screen.get_width() // 2) - (self.button_size // 2) + 50, (self.screen.get_height() // 2) + 200)
+        button_calc = pygame.Rect(button_calc_xy[0], button_calc_xy[1], self.button_size, self.button_size)
+
+        calc_screen_xy = (50, 10)
+        calc_screen = pygame.Rect(calc_screen_xy[0], calc_screen_xy[1], self.screen.get_width() - 100, self.button_size)
 
         if button_1.collidepoint((mousex, mousey)):
             if self.click:
@@ -112,7 +119,11 @@ class Menu:
         elif button_divide.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[12]
-
+                
+        elif button_calc.collidepoint((mousex, mousey)):
+            if self.click:
+                self.option = self.button_command[13]
+                
         pygame.draw.rect(self.screen, self.colour, button_1)
         pygame.draw.rect(self.screen, self.colour, button_2)
         pygame.draw.rect(self.screen, self.colour, button_3)
@@ -126,6 +137,8 @@ class Menu:
         pygame.draw.rect(self.screen, self.colour, button_subtract)
         pygame.draw.rect(self.screen, self.colour, button_multiply)
         pygame.draw.rect(self.screen, self.colour, button_divide)
+        pygame.draw.rect(self.screen, self.colour, button_calc)
+        pygame.draw.rect(self.screen, self.colour, calc_screen)
 
         self.draw_text(f"{self.button_command[0]}", button_1_xy[0] + self.button_size // 2, button_1_xy[1] + self.button_size // 2)
         self.draw_text(f"{self.button_command[1]}", button_2_xy[0] + self.button_size // 2, button_2_xy[1] + self.button_size // 2)
@@ -140,7 +153,9 @@ class Menu:
         self.draw_text(f"{self.button_command[10]}", button_subtract_xy[0] + self.button_size // 2, button_subtract_xy[1] + self.button_size // 2)
         self.draw_text(f"{self.button_command[11]}", button_multiply_xy[0] + self.button_size // 2, button_multiply_xy[1] + self.button_size // 2)
         self.draw_text(f"{self.button_command[12]}", button_divide_xy[0] + self.button_size // 2, button_divide_xy[1] + self.button_size // 2)
-
+        self.draw_text(f"{self.button_command[13]}", button_calc_xy[0] + self.button_size // 2, button_calc_xy[1] + self.button_size // 2)
+        self.draw_text(f"{self.result}", calc_screen_xy[0] + self.button_size // 2, calc_screen_xy[1] + self.button_size // 2)
+        
         pygame.display.update()
 
     def is_clicked(self):

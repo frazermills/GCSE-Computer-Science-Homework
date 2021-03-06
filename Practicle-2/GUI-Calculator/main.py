@@ -25,10 +25,12 @@ def main():
     HEIGHT = 600
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
+    RED = (255, 0, 0)
     fps = 30
     result = 0
     text_colour = BLACK
     button_colour = WHITE
+    clicked_button_colour = RED
     
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -37,13 +39,13 @@ def main():
     text_font = pygame.font.SysFont("Arial", 40)
     
     while True:
-        nums, operator = menu_handler(screen, clock, WHITE, text_colour, text_font, result)
+        nums, operator = menu_handler(screen, clock, WHITE, text_colour, text_font, result, clicked_button_colour)
         result = operation_handler(nums, operator)
         pygame.display.update()
         clock.tick(fps)
 
 # ----------------------------------------- Menu Handler ---------------------------------------- #
-def menu_handler(screen, clock, button_colour, text_colour, text_font, result):
+def menu_handler(screen, clock, button_colour, text_colour, text_font, result, clicked_button_colour):
     """
     Dectects when a button is pressed.
 
@@ -70,7 +72,7 @@ def menu_handler(screen, clock, button_colour, text_colour, text_font, result):
             The operator in the calculation.
     """
     
-    menu = Menu_System.Menu(screen, clock, button_colour, text_colour, text_font, result)
+    menu = Menu_System.Menu(screen, clock, button_colour, text_colour, text_font, result, clicked_button_colour)
     operator = None
     nums = []
 

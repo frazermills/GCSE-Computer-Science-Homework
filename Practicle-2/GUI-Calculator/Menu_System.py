@@ -39,7 +39,7 @@ class Menu:
     """
 
 # ------------------------------------- Initialises Attributes ----------------------------------- #
-    def __init__(self, screen, clock, button_colour, text_colour, font, result):
+    def __init__(self, screen, clock, button_colour, text_colour, font, result, clicked_button_colour):
         """
         Constructs all of the necessary attributes for the Menu object.
 
@@ -49,7 +49,7 @@ class Menu:
                 The pygame surface where everything is rendered.           
             clock: <class 'Clock'>
                 Maintains a constant frame rate.
-            colour: tuple
+            screen_colour: tuple
                 Colour of the buttons.
             text_colour: tuple
                 Colour of text.
@@ -69,15 +69,19 @@ class Menu:
         """
         
         self.screen = screen
-        self.clock = clock
-        self.colour = button_colour
+        self.clock = clock 
         self.text_colour = text_colour
         self.font = font
+        self.button_colour = button_colour
         self.result = result
         self.click = False
         self.button_size = 90
         self.option = None
         self.button_command = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", "calc"]
+        self.button_colours = [self.button_colour for i in self.button_command]
+        self.clicked_button_colour = clicked_button_colour
+        self.screen_colour = button_colour
+
 # --------------------------------------- Sets up Calculator ------------------------------------- #
     def setup(self):
         """
@@ -151,21 +155,21 @@ class Menu:
             None
         """
                 
-        pygame.draw.rect(self.screen, self.colour, self.button_1)
-        pygame.draw.rect(self.screen, self.colour, self.button_2)
-        pygame.draw.rect(self.screen, self.colour, self.button_3)
-        pygame.draw.rect(self.screen, self.colour, self.button_4)
-        pygame.draw.rect(self.screen, self.colour, self.button_5)
-        pygame.draw.rect(self.screen, self.colour, self.button_6)
-        pygame.draw.rect(self.screen, self.colour, self.button_7)
-        pygame.draw.rect(self.screen, self.colour, self.button_8)
-        pygame.draw.rect(self.screen, self.colour, self.button_9)
-        pygame.draw.rect(self.screen, self.colour, self.button_add)
-        pygame.draw.rect(self.screen, self.colour, self.button_subtract)
-        pygame.draw.rect(self.screen, self.colour, self.button_multiply)
-        pygame.draw.rect(self.screen, self.colour, self.button_divide)
-        pygame.draw.rect(self.screen, self.colour, self.button_calc)
-        pygame.draw.rect(self.screen, self.colour, self.calc_screen)
+        pygame.draw.rect(self.screen, self.button_colours[0], self.button_1)
+        pygame.draw.rect(self.screen, self.button_colours[1], self.button_2)
+        pygame.draw.rect(self.screen, self.button_colours[2], self.button_3)
+        pygame.draw.rect(self.screen, self.button_colours[3], self.button_4)
+        pygame.draw.rect(self.screen, self.button_colours[4], self.button_5)
+        pygame.draw.rect(self.screen, self.button_colours[5], self.button_6)
+        pygame.draw.rect(self.screen, self.button_colours[6], self.button_7)
+        pygame.draw.rect(self.screen, self.button_colours[7], self.button_8)
+        pygame.draw.rect(self.screen, self.button_colours[8], self.button_9)
+        pygame.draw.rect(self.screen, self.button_colours[9], self.button_add)
+        pygame.draw.rect(self.screen, self.button_colours[10], self.button_subtract)
+        pygame.draw.rect(self.screen, self.button_colours[11], self.button_multiply)
+        pygame.draw.rect(self.screen, self.button_colours[12], self.button_divide)
+        pygame.draw.rect(self.screen, self.button_colours[13], self.button_calc)
+        pygame.draw.rect(self.screen, self.screen_colour, self.calc_screen)
 
         self.draw_text(f"{self.button_command[0]}", self.button_1_xy[0] + self.button_size // 2, self.button_1_xy[1] + self.button_size // 2)
         self.draw_text(f"{self.button_command[1]}", self.button_2_xy[0] + self.button_size // 2, self.button_2_xy[1] + self.button_size // 2)
@@ -222,64 +226,79 @@ class Menu:
         -------
             None
         """
+        #self.button_colours = [self.button_colour for i in self.button_command]
         
         mousex, mousey = pygame.mouse.get_pos()
 
         if self.button_1.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[0]
+                self.button_colours[0] = self.clicked_button_colour
 
         elif self.button_2.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[1]
+                self.button_colours[1] = self.clicked_button_colour
                 
         elif self.button_3.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[2]
+                self.button_colours[2] = self.clicked_button_colour
 
         elif self.button_4.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[3]
+                self.button_colours[3] = self.clicked_button_colour
 
         elif self.button_5.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[4]
+                self.button_colours[4] = self.clicked_button_colour
                 
         elif self.button_6.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[5]
+                self.button_colours[5] = self.clicked_button_colour
 
         elif self.button_7.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[6]
+                self.button_colours[6] = self.clicked_button_colour
 
         elif self.button_8.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[7]
+                self.button_colours[7] = self.clicked_button_colour
                 
         elif self.button_9.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[8]
+                self.button_colours[8] = self.clicked_button_colour
 
         elif self.button_add.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[9]
+                self.button_colours[9] = self.clicked_button_colour
 
         elif self.button_subtract.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[10]
+                self.button_colours[10] = self.clicked_button_colour
                 
         elif self.button_multiply.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[11]
+                self.button_colours[11] = self.clicked_button_colour
 
         elif self.button_divide.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[12]
+                self.button_colours[12] = self.clicked_button_colour
                 
         elif self.button_calc.collidepoint((mousex, mousey)):
             if self.click:
                 self.option = self.button_command[13]
+                self.button_colours[13] = self.clicked_button_colour
 
         self.click = False
         

@@ -163,16 +163,25 @@ def operation_handler(nums, operator):
         result = sum(nums)
         
     elif operator == "-":
-        result = nums[0] - nums[1]
+        try:
+            result = nums[0] - nums[1]
+        except IndexError as illegal_input_error:
+            result = "Illegal Input"
         
     elif operator == "*":
-        result = round(nums[0] * nums[1], 3)
+        try:
+            result = round(nums[0] * nums[1], 3)
+        except IndexError as illegal_input_error:
+            result = "Illegal Input"
 
     elif operator == "/":
-        result = round(nums[0] / nums[1], 3)
+        try:
+            result = round(nums[0] / nums[1], 3)
+        except IndexError as illegal_input_error:
+            result = "Illegal Input"
 
     else:
-        result = "illegal input"
+        result = "Illegal Input"
 
     return result
 

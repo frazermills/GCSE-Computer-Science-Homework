@@ -1,77 +1,44 @@
-# Airports NEA example
+import menu_system
+import csv
 
-DEBUG = True # Flag to enable/disable tracing
 
-import csv # Import the CSV (comma separated values) module
+def main():
+    airport_data = read_airports_data()
+    print(airport_data)
+    menu = menu_system.Menu()
+    menu_handler(menu)
 
-# -----------------------------------------------
-def show_menu():
-    print_horizontal_rule()
-    print("MENU:")
-    print("1 - Enter airport details")
-    print("2 - Enter flight details")
-    print("3 - Enter price plan")
-    print("4 - Clear data")
-    print("9 - Quit")
-# -----------------------------------------------
+
 def read_airports_data():
     data = []
 
-    # open a file
     with open("Airports.txt") as f:
-        # get a CSV reader object
         reader = csv.reader(f, delimiter=",")
-    # iterate over each row
         for row in reader:
             if len(row):
                 print(row)
                 data.append(row)
     return data
-# -----------------------------------------------
-def main():
-    data = read_airports_data()
-    if DEBUG: print(data)
 
-    show_menu()
 
-    # get first choice
-    choice = int(input("Choose a menu option "))
+def menu_handler(menu):
+    in_menu = True
 
-    while choice != 9:
-        # do the chosen item
-        if choice == 1:
-            enter_airport_details()
-        elif choice == 2:
-            enter_flight_details()
-        elif choice == 3:
-            enter_price_plan()
-        elif choice == 4:
-            clear_data()
-        else:
-            print("Illegal choice")
-
-    show_menu()
-    # get next choice
-    choice = int(input("Choose a menu option "))
-
-# -----------------------------------------------
-def clear_display():
-    print("\n" * 60)
-# -----------------------------------------------
-def print_horizontal_rule():
-    print("=" * 30)
-# -----------------------------------------------
-def enter_airport_details():
-    pass
-# -----------------------------------------------
-def enter_flight_details():
-    pass
-# -----------------------------------------------
-def enter_price_plan():
-    pass
-# -----------------------------------------------
-def clear_data():
-    pass
-# -----------------------------------------------
-
-main()
+    while in_menu:
+      while menu.option == None:
+          menu.setup_menu()
+          if menu.choice == 1:
+              menu.menu_options()
+          elif menu.choice == 2:
+              menu.menu_options()
+          elif menu.choice == 3:
+              menu.menu_options()
+          elif menu.choice == 4:
+              menu.menu_options()
+          elif menu.choice == 9:
+              menu.menu_options()
+          
+          menu.update_menu()
+            
+if __name__ == "__main__":
+    main()

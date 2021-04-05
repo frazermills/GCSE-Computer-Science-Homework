@@ -36,8 +36,6 @@ def main():
     airport_data = read_airports_data()
     formatted_airport_data["Overseas Airports"] = process_airports_data(airport_data)
 
-    distance = formatted_airport_data["Overseas Airports"]
-    
     menu = menu_system.Menu(formatted_airport_data, aircraft_types)
     menu_handler(menu, formatted_airport_data)
 
@@ -69,6 +67,11 @@ def menu_handler(menu, airport_data):
     in_menu = True
 
     while in_menu:
+        uk_airport_code = None
+        overseas_airport_code = None
+        aircraft_type = None
+        num_of_first_class_seats = None
+        distance = None
     
         while menu.option == None:
             menu.setup_menu()
@@ -80,18 +83,23 @@ def menu_handler(menu, airport_data):
                 overseas_airport_details = airport_data["Overseas Airports"][overseas_airport_code]
 
             elif menu.option == menu.commands[1]:
-                menu.enter_flight_details()
+                aircraft_type, num_of_first_class_seats, num_of_stardard_class_seats = menu.enter_flight_details()
+                
             elif menu.option == menu.commands[2]:
-                print("Enter price plan")
+                menu.enter_price_plan(uk_airport_code, overseas_airport_code, aircraft_type, num_of_first_class_seats, num_of_stardard_class_seats)
+                
             elif menu.option == menu.commands[3]:
-                print("Clear data")
+                print("data cleared")
+                
             elif menu.option == menu.commands[4]:
                 in_menu = False
-                menu.quit_menu()
+                
             else:
                 print("Illegal input, please try again")
 
-        menu.option = None
+            menu.option = None
+
+    menu.quit_menu()
 
             
 if __name__ == "__main__":

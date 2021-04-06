@@ -1,6 +1,15 @@
+# Author: Frazer Mills
+# Date: 06/04/21
+# File name: 'main.py'
+# Program name: 'NEA - Airports'
+# Python 3.9.2
+# Description: This program is a CLI Airport manager that reads from a .txt file and takes inputs from the user.
+#              It then calculates the profit of the flight and displays it to the user.
+
 import menu_system
 import csv
 
+# ----------------------------------------- Main Program Function ------------------------------------------ #
 def main():
     """
     It initialises all the variables used in the program and runs the main loop.
@@ -54,6 +63,7 @@ def main():
         menu_system.MenuSystem.formatting("print horizontal rule")
         menu_system.MenuSystem.formatting("clear display")
 
+# --------------------------------------- Reads data from Input file --------------------------------------- #
 def read_airports_data():
     """
     Reads data from Airport.txt file and puts it into a 2 dimensional array.
@@ -77,6 +87,7 @@ def read_airports_data():
 
     return data
 
+# ---------------------------------------------- Formats Data ---------------------------------------------- #
 def process_airports_data(data):
     """
     Formats data into a 3 dimensional dictionary.
@@ -104,6 +115,7 @@ def process_airports_data(data):
 
     return formatted_airport_data
 
+# ---------------------------------------------- Menu Handler ---------------------------------------------- #
 def menu_handler(menu, airport_data):
     """
     Dectects when the user inputs a command.
@@ -122,7 +134,6 @@ def menu_handler(menu, airport_data):
     while in_menu:
         uk_airport_code = None
         overseas_airport_code = None
-        aircraft_type = None
         num_of_first_class_seats = None
         
         while menu.Option == None:
@@ -137,11 +148,11 @@ def menu_handler(menu, airport_data):
                 menu_system.MenuSystem.formatting("print horizontal rule")
 
             elif menu.Option == menu.Commands[1]:
-                aircraft_type, num_of_first_class_seats, num_of_stardard_class_seats = menu.enter_flight_details()
+                num_of_first_class_seats, num_of_stardard_class_seats = menu.enter_flight_details()
                 menu_system.MenuSystem.formatting("print horizontal rule")
                 
             elif menu.Option == menu.Commands[2]:
-                menu.enter_price_plan(uk_airport_code, overseas_airport_code, aircraft_type, num_of_first_class_seats, num_of_stardard_class_seats)
+                menu.enter_price_plan(uk_airport_code, overseas_airport_code, num_of_first_class_seats, num_of_stardard_class_seats)
                 menu_system.MenuSystem.formatting("print horizontal rule")
                 
             elif menu.Option == menu.Commands[3]:
@@ -158,7 +169,7 @@ def menu_handler(menu, airport_data):
             menu.Option = None
             menu.Choice = None
             
-
+# ---------------------------------------------- Clears Data ----------------------------------------------- #
 def clear_data(menu):
     """
     Clears data by resetting the program.
@@ -191,6 +202,6 @@ def quit_program(menu):
     del menu
     quit()
 
-
+# ------------------------------------------------ Runs Main ----------------------------------------------- #
 if __name__ == "__main__":
     main()

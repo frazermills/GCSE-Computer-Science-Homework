@@ -1,3 +1,12 @@
+# Author: Frazer Mills
+# Date: 06/04/21
+# File name: 'menu_system.py'
+# Program name: 'NEA - Airports'
+# Python 3.9.2
+# Description: This module contains the 'MenuSystem' class. An object of this class is instantiated in 'main.py'.
+#              This object is used for the menu system. This object is managed by the 'menu_handler' function in 'main.py'.
+
+# --------------------------------------------- MenuSystem Class ------------------------------------------- #
 class MenuSystem:
     """
     A class to represent a menu. It also defines all of the menu system's options.
@@ -78,7 +87,8 @@ class MenuSystem:
         quit_menu():
             Outputs a goodbye message to the user.
     """
-    
+
+# ------------------------------------------ Initialises Attributes ---------------------------------------- #
     def __init__(self, airport_data, aircraft_types):
         """
         Constructs all of the necessary attributes for the Menu object.
@@ -104,16 +114,17 @@ class MenuSystem:
         self.__choice = None
         self.__option = None
         self.__distance = None
+        self.__chosen_aircraft = None
         self.__airport_data = airport_data
         self.__valid_codes = {
             "UK Airports": [*self.__airport_data["UK Airports"]],
             "Overseas Airports": [*self.__airport_data["Overseas Airports"]]
-        }
-        
+        }        
         self.__aircraft_types = aircraft_types
         self.__developer = "Frazer Mills"
         self.__company = "Airport Manager LLC"
 
+# -------------------------------------------- Deconstructs Class ------------------------------------------ #
     def __del__(self):
         """
         Decontructs the menu object.
@@ -129,6 +140,7 @@ class MenuSystem:
         
         print("All data has been cleared")
 
+# ---------------------------------------- Setter and Getter Methods --------------------------------------- #
     @property
     def AirportData(self):
         return self.__airport_data
@@ -159,6 +171,7 @@ class MenuSystem:
     def Commands(self):
         return self.__commands
 
+# --------------------------------------------- Formats Display -------------------------------------------- #
     @staticmethod
     def formatting(mode):
         """
@@ -183,7 +196,8 @@ class MenuSystem:
 
         else:
             raise Exception(f"'{mode}' is an unsported mode of the static method 'formatting'")
-    
+
+# ------------------------------------------ Displays Menu Options ----------------------------------------- #
     def setup_menu(self):
         """
         Prints menu options to display. Takes input from user.
@@ -207,6 +221,7 @@ class MenuSystem:
             except ValueError:
                 print("That was an illegal value input, please try again.")
 
+# -------------------------------------------- Gets Menu Options ------------------------------------------- #
     def get_menu_options(self):
         """
         Assigns a menu option depending on the user's choice.
@@ -235,6 +250,7 @@ class MenuSystem:
         elif self.__choice == 9:
             self.__option = self.__commands[4]
 
+# --------------------------------------- Prompts for Airport Details -------------------------------------- #
     def enter_airport_details(self):
         """
         Prompts user to enter the airport data.
@@ -271,6 +287,7 @@ class MenuSystem:
 
         return three_letter_uk_airport_code, three_letter_overseas_airport_code
 
+# ---------------------------------------- Prompts for Flight Details -------------------------------------- #
     def enter_flight_details(self):
         """
         Prompts user for inputs. Calculates number of seats on.
@@ -281,7 +298,10 @@ class MenuSystem:
 
         Returns
         -------
-            None
+            num_of_first_class_seats: int
+                The number of seats on the plan that are first class.
+            num_of_stardard_class_seats: int
+                The number of seats on the plan that are standard class.
         """
         
         num_of_aircrafts = len(self.__aircraft_types)
@@ -299,25 +319,26 @@ class MenuSystem:
 
         chosen_aircraft_num = str(input(f"Input your chosen aircraft type option (1 to {num_of_aircrafts}): "))
 
-        while chosen_aircraft == None:
+        while self.__chosen_aircraft == None:
             if chosen_aircraft_num == "1":
-                chosen_aircraft = "Medium narrow body"
+                self.__chosen_aircraft = "Medium narrow body"
             elif chosen_aircraft_num == "2":
-                chosen_aircraft = "Large narrow body"
+                self.__chosen_aircraft = "Large narrow body"
             elif chosen_aircraft_num == "3":
-                chosen_aircraft = "Medium wide body"
+                self.__chosen_aircraft = "Medium wide body"
             else:
                 chosen_aircraft_num = str(input(f"That is an illegal input, please try again. Input your chosen aircraft type option (1 to {num_of_aircrafts}): "))
         print("Input accepted")
 
-        max_num_of_first_class_seats = self.__aircraft_types[chosen_aircraft]["Capacity"] // 2
+        max_num_of_first_class_seats = self.__aircraft_types[self.__chosen_aircraft]["Capacity"] // 2
         
         while num_of_first_class_seats == None:
             num_of_first_class_seats = int(input("Input the number of first class seats: "))
 
             if num_of_first_class_seats:
-                if num_of_first_class_seats < self.__aircraft_types[chosen_aircraft]["Minimum number of first class seats"]:
-                    print(f"The minimum number of first class seats for this aircraft is {self.aircraft_types[chosen_aircraft]['Minimum number of first class seats']}, your input of {num_of_first_class_seats} was too low. Please try again.")
+                if num_of_first_class_seats < self.__aircraft_types[self.__chosen_aircraft]["Minimum number of first class seats"]:
+                    print(f"The minimum number of first class seats for this aircraft is {self.aircraft_types[self.__chosen_aircraft]['Minimum number of first class seats']},", end=" ")
+                    print(f"your input of {num_of_first_class_seats} was too low. Please try again.")
                     num_of_first_class_seats = None
 
             elif num_of_first_class_seats > max_num_of_first_class_seats:
@@ -328,24 +349,28 @@ class MenuSystem:
                 if self.__aircraft_types[chosen_aircraft]["Minimum number of first class seats"] == 0:
                     continue
                 else:
-                    print(f"The minimum number of first class seats for this aircraft is {self.aircraft_types[chosen_aircraft]['Minimum number of first class seats']}, your input of {num_of_first_class_seats} was too low. Please try again.")
+                    print(f"The minimum number of first class seats for this aircraft is {self.__aircraft_types[chosen_aircraft]['Minimum number of first class seats']}," , end=" ")
+                    print(f"your input of {num_of_first_class_seats} was too low. Please try again.")
                     num_of_first_class_seats = None
 
         print("Inputs accepted")
 
-        num_of_stardard_class_seats = self.__aircraft_types[chosen_aircraft]["Capacity"] - (num_of_first_class_seats * 2)
+        num_of_stardard_class_seats = self.__aircraft_types[self.__chosen_aircraft]["Capacity"] - (num_of_first_class_seats * 2)
 
-        print(num_of_stardard_class_seats)
+        return num_of_first_class_seats, num_of_stardard_class_seats
 
-        return chosen_aircraft, num_of_first_class_seats, num_of_stardard_class_seats
-        
-    def enter_price_plan(self, uk_airport_code, overseas_airport_code, aircraft_type, num_of_first_class_seats, num_of_stardard_class_seats):
+# -------------------------------------- Prompts for Price Plan Details ------------------------------------ #
+    def enter_price_plan(self, uk_airport_code, overseas_airport_code, num_of_first_class_seats, num_of_stardard_class_seats):
         """
         Calculates the flight's profit.
 
         Parameters
         ----------
-            None
+            uk_airport_code: str
+                Three letter code that define which airport the user is travelling from.
+            overseas_airport_code: str
+                Three letter code that define which airport the user is travelling to.
+            
 
         Returns
         -------
@@ -355,15 +380,15 @@ class MenuSystem:
         try:
             if uk_airport_code in self.__valid_codes["UK Airports"] and overseas_airport_code in self.__valid_codes["Overseas Airports"]:
 
-                if aircraft_type in self.__aircraft_types:
+                if self.__chosen_aircraft in self.__aircraft_types:
                     
                     if num_of_first_class_seats:
                         
-                        if self.__aircraft_types[aircraft_type]["Maximun flight range"] >= int(self.__distance):
+                        if self.__aircraft_types[self.__chosen_aircraft]["Maximun flight range"] >= int(self.__distance):
                             cost_per_first_class_seat = int(input("Input cost per first class seat: "))
                             flight_cost_per_standard_seat = int(input("Input cost per standard seat: "))
                             
-                            flight_cost_per_seat = (self.__aircraft_types[aircraft_type]["Running cost per seat per 100km"] * int(self.__distance)) / 100
+                            flight_cost_per_seat = (self.__aircraft_types[self.__chosen_aircraft]["Running cost per seat per 100km"] * int(self.__distance)) / 100
                             flight_cost = flight_cost_per_seat * (num_of_first_class_seats + num_of_stardard_class_seats)
                             flight_income = (num_of_first_class_seats * cost_per_first_class_seat) + (num_of_stardard_class_seats * flight_cost_per_standard_seat) 
                             flight_profit = round(flight_income - flight_cost, 2)
@@ -385,9 +410,7 @@ class MenuSystem:
         except UnboundLocalError:
             print("You need to do 'Enter airport details' and 'Enter flight details' first. Please try again after doing so.")
 
-        finally:
-            return -1
-        
+# ------------------------------------------------ Quits Menu ---------------------------------------------- #
     def quit_menu(self):
         """
         Outputs a goodbye message to the display.
